@@ -1,0 +1,4 @@
+/mnt/photos/visitors/100
+/mnt/photos/visitors/200
+/mnt/photos/visitors/300
+/mnt/photos/visitors/400
