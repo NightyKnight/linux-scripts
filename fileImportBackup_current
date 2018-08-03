@@ -1,0 +1,37 @@
+#!/bin/bash
+#####################################
+#					#
+# Daily Backup SFTP directory		#
+#					#
+#####################################
+
+# What to backup.
+backup_source="/mnt/sftp"
+
+#What to exclude
+exclude_hidden="$backup_source/.*"
+exclude_scripts="$backup_source/*.sh"
+exclude_builds="$backup_source/jenkinsbuildserver"
+exclude_backup="$backup_source/fileImportBackup"
+exclude_filepickup="$backup_source/FilePickup"
+# Where to backup to.
+dest="/mnt/fileImportBackup"
+
+# Create archive filename.
+day=$(date +%A)
+hostname='sftp-backup'
+archive_file="$hostname-$day.tgz"
+
+# Print start status message.
+echo "Backing up $backup_source to $dest/$archive_file"
+date
+
+# Backup the files using tar.
+tar czf $dest/$archive_file $backup_source --exclude=$exclude_hidden --exclude=$exclude_scripts --exclude=$exclude_builds --exclude=$exclude_backup --exclude=$exclude_filepickup
+
+# Print end status message.
+echo "Backup finished"
+date
+
+# Long listing of files in $dest to check file sizes.
+ls -lh $dest
