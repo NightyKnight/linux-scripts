@@ -1,0 +1,19 @@
+#!/usr/bin/expect -f
+
+set timeout 30
+set host 192.168.1.100
+set user john
+set password i@ms3cur3
+
+
+spawn sftp -o PubkeyAuthentication=no $user@$host
+expect "*assword:"
+send "$password\r"
+expect "sftp>"
+send "get employees.csv /mnt/sftp/FileImport/\r"
+expect "sftp>"
+send "get TishmanSpeyer_PMO.csv /mnt/sftp/FileImport/\r"
+expect "sftp>"
+send "quit \r"
+
+exit
